@@ -1,0 +1,16 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vondoste/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true vondoste/react-test npm test
+
+after_success:
+  - docker build -t vondoste/multi-client ./client
+  - docker build -t vondoste/multi-nginx ./nginx
+  - docker build -t vondoste/multi-server ./server
+  - docker build -t vondoste/multi-worker ./worker

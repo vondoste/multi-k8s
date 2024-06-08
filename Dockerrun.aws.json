@@ -1,0 +1,34 @@
+{
+    "AWSEBDockerrunVrsion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "vondoste/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "vondoste/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "vondoste/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        }, {
+            "name": "nginx",
+            "image": "vondoste/multi-nginx",
+            "essential": true,
+            "portMappings": [
+                {                
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}

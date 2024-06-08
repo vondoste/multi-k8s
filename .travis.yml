@@ -22,3 +22,14 @@ after_success:
   - docker push vondoste/multi-server
   - docker push vondoste/multi-worker
   
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "frontend"
+  env: "Frontend-env"
+  bucket_name: "elasticbeanstalk-us-east-2-637423311347"
+  bucket_path: "frontend"
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
